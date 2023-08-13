@@ -1,0 +1,19 @@
+{
+  "name": "myflix-client",
+  "version": "1.0.0",
+  "description": "This is the client side of the movie app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t22n84r/myFlix-client.git"
+  },
+  "author": "t22n84r",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/t22n84r/myFlix-client/issues"
+  },
+  "homepage": "https://github.com/t22n84r/myFlix-client#readme"
+}

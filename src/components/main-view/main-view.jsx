@@ -4,20 +4,41 @@ import { MovieView } from "../movie-view/movie-view";
 
 import { MovieCard } from "../movie-card/movie-card";
 
+import { LoginView } from "../login-view/login-view";
+
+import { SignupView } from "../signup-view/signup-view";
+
 export const MainView = () => {
+
+  const storedUser = JSON.parse(localStorage.getItem("user"));                  // user & token local storage
+
+  const storedToken = localStorage.getItem("token");
+
+  const [user, setUser] = useState(storedUser? storedUser : null);              // hooks to change component state
+
+  const [token, setToken] = useState(storedToken? storedToken : null);
+  
   const [movies, setMovies] = useState([]);
 
   const [selectedMovie, setselectedMovie] = useState(null);
 
-  useEffect ( () => {
+  useEffect ( () => {                                                            // hook to fetch data through api
 
-    fetch ("https://high-triode-348322.lm.r.appspot.com/movies")
+    if (!token) {
+
+      return;
+    }
+
+    fetch ("https://high-triode-348322.lm.r.appspot.com/movies", {
+
+      headers: { Authorization: `Bearer ${token}` }
+    })
 
     .then ((response) => response.json())
 
-    .then ((data) => {
+    .then ((movies) => {
 
-      const movieFromAPI = data.map((movie) => {
+      const movieFromAPI = movies.map((movie) => {
 
         return {
 
@@ -36,18 +57,33 @@ export const MainView = () => {
           featured: movie.featured
         };
       });
+
       setMovies(movieFromAPI);
+
     })
     .catch((error) => {
+
       console.error("Error fetching data:", error);
     });
-  }, [] );
+    
+  }, [token] );
 
-  if (selectedMovie) {
+  if (!user) {                                                                       // Login and sign up page 
+
+    return (
+      <div>
+        <LoginView onLoggedIn = {(user, token) => {setUser(user); setToken(token);}} />
+
+        <p><hr /> or Signup for a new account </p>
+
+        <SignupView />
+        </div>
+    );
+  }
+
+  if (selectedMovie) {                                                                // Movie details view with similar movie suggestion
 
     let similarMovies = movies.filter ((movie) => selectedMovie.genre.name === movie.genre.name && selectedMovie.id !== movie.id);
-
-    console.log(similarMovies);
 
     return (
 
@@ -71,13 +107,13 @@ export const MainView = () => {
     );
   }
 
-  if (movies.length === 0) {
+  if (movies.length === 0) {                                                             // Movie array check
 
     return <div> The movie list is empty. </div>;
 
   } else {
 
-    return (
+    return (                                                                              // Main view/page with movie list
 
       <div>
 
@@ -88,6 +124,8 @@ export const MainView = () => {
           );
 
         })}
+
+        <button onClick = {() => { setUser(null); setToken(null); localStorage.clear() } } > Logout </button>
 
       </div>
     );

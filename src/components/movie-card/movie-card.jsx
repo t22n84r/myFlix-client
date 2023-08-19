@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const MovieCard = (props) => {
+export const MovieCard = (props) => {                                         // Rendering the movie list view
 
   return (
 
@@ -28,23 +28,26 @@ MovieCard.propTypes = {
 
     description: PropTypes.string.isRequired,
 
-    director: PropTypes.shape ({
+    director: PropTypes.arrayOf(
+    
+      PropTypes.shape ({
 
-      name: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
 
-      bio: PropTypes.string.isRequired,
+        bio: PropTypes.string.isRequired,
+        
+        birthyear: PropTypes.arrayOf(PropTypes.string).isRequired,
+
+        deathyear: PropTypes.string.isRequired
+      })
+    ),
       
-      birthyear: PropTypes.string.isRequired,
-
-      deathyear: PropTypes.string.isRequired
-    }),
-
-    genre: {
+    genre: PropTypes.shape ({
 
       name: PropTypes.string.isRequired,
 
       description: PropTypes.string.isRequired
-    },
+    }),
 
     imageurl: PropTypes.string.isRequired,
 

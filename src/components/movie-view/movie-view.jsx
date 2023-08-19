@@ -1,4 +1,4 @@
-export const MovieView = (props) => {
+export const MovieView = (props) => {                                                     // Movie view 
 
     return (
       
@@ -15,7 +15,12 @@ export const MovieView = (props) => {
           <div key={index}>
             <p>Name: {director.name}</p>
             <p>Bio: {director.bio}</p>
-            <p>Birth Year: {director.birthyear}</p>
+            <p>Birth Year:</p>
+            <ul>
+              {director.birthyear.map((year, yearIndex) => (
+                <li key={yearIndex}>{year}</li>
+              ))}
+            </ul>
             <p>Death Year: {director.deathyear || "N/A"}</p>
           </div>
         ))}

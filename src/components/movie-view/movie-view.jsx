@@ -1,6 +1,9 @@
 export const MovieView = (props) => {
+
     return (
+      
       <div>
+
         <h3> Title </h3>
         <p> {props.movieView.title} </p>
   
@@ -26,6 +29,7 @@ export const MovieView = (props) => {
         <p>Featured: {props.movieView.featured ? "Yes" : "No"}</p>
   
         <button onClick={props.onBackClick}>Back</button>
+
       </div>
     );
   };

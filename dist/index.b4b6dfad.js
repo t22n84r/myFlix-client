@@ -27368,8 +27368,8 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 62,
-                columnNumber: 5
+                lineNumber: 61,
+                columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
@@ -27377,30 +27377,31 @@ const MainView = ()=>{
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
                             lineNumber: 69,
-                            columnNumber: 10
+                            columnNumber: 13
                         }, undefined),
-                        " or Signup for a new account "
+                        " or Signup for a new account",
+                        " "
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 69,
-                    columnNumber: 6
+                    lineNumber: 68,
+                    columnNumber: 11
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 68,
-                columnNumber: 5
+                lineNumber: 67,
+                columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 71,
-                columnNumber: 5
+                lineNumber: 72,
+                columnNumber: 9
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 61,
-        columnNumber: 4
+        lineNumber: 60,
+        columnNumber: 7
     }, undefined);
     else if (selectedMovie) {
         // Render MovieView and similar movies for selected movie
@@ -27412,44 +27413,63 @@ const MainView = ()=>{
                     onBackClick: ()=>setselectedMovie(null)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 84,
-                    columnNumber: 5
+                    lineNumber: 85,
+                    columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 88,
-                    columnNumber: 5
+                    lineNumber: 89,
+                    columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                     children: "Similar movies"
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 89,
-                    columnNumber: 5
+                    lineNumber: 90,
+                    columnNumber: 9
                 }, undefined),
-                similarMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                        movieCard: movie,
-                        onMovieClick: (newselectedMovie)=>{
-                            setselectedMovie(newselectedMovie);
-                        }
-                    }, movie.id, false, {
-                        fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 91,
-                        columnNumber: 6
-                    }, undefined))
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                    xs: 1,
+                    sm: 2,
+                    md: 3,
+                    lg: 3,
+                    xl: 3,
+                    gap: 4,
+                    children: similarMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                            className: "d-flex flex-column justify-content-center align-items-center",
+                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                                movieCard: movie,
+                                onMovieClick: (newselectedMovie)=>{
+                                    setselectedMovie(newselectedMovie);
+                                }
+                            }, void 0, false, {
+                                fileName: "src/components/main-view/main-view.jsx",
+                                lineNumber: 97,
+                                columnNumber: 15
+                            }, undefined)
+                        }, movie.id, false, {
+                            fileName: "src/components/main-view/main-view.jsx",
+                            lineNumber: 93,
+                            columnNumber: 13
+                        }, undefined))
+                }, void 0, false, {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 91,
+                    columnNumber: 9
+                }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 83,
-            columnNumber: 4
+            lineNumber: 84,
+            columnNumber: 7
         }, undefined);
     } else if (movies.length === 0) // Display message for empty movie list
     mainContent = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: " The movie list is empty. "
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 103,
-        columnNumber: 17
+        lineNumber: 110,
+        columnNumber: 19
     }, undefined);
     else // Render movie list and logout button for logged-in users
     mainContent = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27465,8 +27485,8 @@ const MainView = ()=>{
                             children: "MyFlix"
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 110,
-                            columnNumber: 6
+                            lineNumber: 117,
+                            columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav), {
                             className: "ml-auto",
@@ -27480,24 +27500,24 @@ const MainView = ()=>{
                                 children: "Logout"
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 112,
-                                columnNumber: 7
+                                lineNumber: 119,
+                                columnNumber: 15
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 111,
-                            columnNumber: 6
+                            lineNumber: 118,
+                            columnNumber: 13
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 109,
-                    columnNumber: 6
+                    lineNumber: 116,
+                    columnNumber: 11
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 108,
-                columnNumber: 5
+                lineNumber: 115,
+                columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                 className: "d-flex flex-column justify-content-center align-items-center",
@@ -27517,29 +27537,29 @@ const MainView = ()=>{
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 130,
-                                columnNumber: 9
+                                lineNumber: 140,
+                                columnNumber: 17
                             }, undefined)
                         }, movie.id, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 129,
-                            columnNumber: 8
+                            lineNumber: 136,
+                            columnNumber: 15
                         }, undefined))
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 127,
-                    columnNumber: 6
+                    lineNumber: 134,
+                    columnNumber: 11
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 126,
-                columnNumber: 5
+                lineNumber: 133,
+                columnNumber: 9
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 107,
-        columnNumber: 4
+        lineNumber: 114,
+        columnNumber: 7
     }, undefined);
     // Render the main content within a row
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -27547,8 +27567,8 @@ const MainView = ()=>{
         children: mainContent
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 145,
-        columnNumber: 9
+        lineNumber: 155,
+        columnNumber: 10
     }, undefined);
 };
 _s(MainView, "4bIld1c64k3iGMaG3fO+PtTsOic=");

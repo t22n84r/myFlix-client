@@ -1,95 +1,153 @@
+/** @format */
+
 import { useEffect, useState } from "react";
 
 import { MovieView } from "../movie-view/movie-view";
 
 import { MovieCard } from "../movie-card/movie-card";
 
+import { LoginView } from "../login-view/login-view";
+
+import { SignupView } from "../signup-view/signup-view";
+
 export const MainView = () => {
-  const [movies, setMovies] = useState([]);
+	const storedUser = JSON.parse(localStorage.getItem("user")); // user & token local storage
 
-  const [selectedMovie, setselectedMovie] = useState(null);
+	const storedToken = localStorage.getItem("token");
 
-  useEffect ( () => {
+	const [user, setUser] = useState(storedUser ? storedUser : null); // hooks to change component state
 
-    fetch ("https://high-triode-348322.lm.r.appspot.com/movies")
+	const [token, setToken] = useState(storedToken ? storedToken : null);
 
-    .then ((response) => response.json())
+	const [movies, setMovies] = useState([]);
 
-    .then ((data) => {
+	const [selectedMovie, setselectedMovie] = useState(null);
 
-      const movieFromAPI = data.map((movie) => {
+	useEffect(() => {
+		// hook to fetch data through api
 
-        return {
+		if (!token) {
+			return;
+		}
 
-          id: movie._id,
+		fetch("https://high-triode-348322.lm.r.appspot.com/movies", {
+			headers: { Authorization: `Bearer ${token}` },
+		})
+			.then((response) => response.json())
 
-          title: movie.title,
+			.then((movies) => {
+				const movieFromAPI = movies.map((movie) => {
+					return {
+						id: movie._id,
 
-          description: movie.description,
+						title: movie.title,
 
-          director: movie.director,
+						description: movie.description,
 
-          genre: movie.genre,
+						director: movie.director,
 
-          imageurl: movie.imageurl,
+						genre: movie.genre,
 
-          featured: movie.featured
-        };
-      });
-      setMovies(movieFromAPI);
-    })
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-    });
-  }, [] );
+						imageurl: movie.imageurl,
 
-  if (selectedMovie) {
+						featured: movie.featured,
+					};
+				});
 
-    let similarMovies = movies.filter ((movie) => selectedMovie.genre.name === movie.genre.name && selectedMovie.id !== movie.id);
+				setMovies(movieFromAPI);
+			})
+			.catch((error) => {
+				console.error("Error fetching data:", error);
+			});
+	}, [token]);
 
-    console.log(similarMovies);
+	if (!user) {
+		// Login and sign up page
 
-    return (
+		return (
+			<div>
+				<LoginView
+					onLoggedIn={(user, token) => {
+						setUser(user);
+						setToken(token);
+					}}
+				/>
 
-      <div>
+				<p>
+					<hr /> or Signup for a new account{" "}
+				</p>
 
-        <MovieView movieView={selectedMovie} onBackClick={() => setselectedMovie(null)} />
+				<SignupView />
+			</div>
+		);
+	}
 
-        <hr />
+	if (selectedMovie) {
+		// Movie details view with similar movie suggestion
 
-        <h2>Similar movies</h2>
+		let similarMovies = movies.filter(
+			(movie) =>
+				selectedMovie.genre.name === movie.genre.name &&
+				selectedMovie.id !== movie.id
+		);
 
-        {similarMovies.map((movie) => {
+		return (
+			<div>
+				<MovieView
+					movieView={selectedMovie}
+					onBackClick={() => setselectedMovie(null)}
+				/>
 
-          return (
-            <MovieCard key={movie.id} movieCard={movie} onMovieClick={(newselectedMovie) => { setselectedMovie(newselectedMovie)}} />
-          );
+				<hr />
 
-        })}
+				<h2>Similar movies</h2>
 
-      </div>
-    );
-  }
+				{similarMovies.map((movie) => {
+					return (
+						<MovieCard
+							key={movie.id}
+							movieCard={movie}
+							onMovieClick={(newselectedMovie) => {
+								setselectedMovie(newselectedMovie);
+							}}
+						/>
+					);
+				})}
+			</div>
+		);
+	}
 
-  if (movies.length === 0) {
+	if (movies.length === 0) {
+		// Movie array check
 
-    return <div> The movie list is empty. </div>;
+		return <div> The movie list is empty. </div>;
+	} else {
+		return (
+			// Main view/page with movie list
 
-  } else {
+			<div>
+				{movies.map((movie) => {
+					return (
+						<MovieCard
+							key={movie.id}
+							movieCard={movie}
+							onMovieClick={(newselectedMovie) => {
+								setselectedMovie(newselectedMovie);
+							}}
+						/>
+					);
+				})}
 
-    return (
-
-      <div>
-
-        {movies.map((movie) => {
-
-          return (
-            <MovieCard key={movie.id} movieCard={movie} onMovieClick={(newselectedMovie) => { setselectedMovie(newselectedMovie)}} />
-          );
-
-        })}
-
-      </div>
-    );
-  }
+				<button
+					onClick={() => {
+						setUser(null);
+						setToken(null);
+						localStorage.clear();
+					}}>
+					{" "}
+					Logout{" "}
+				</button>
+			</div>
+		);
+	}
 };

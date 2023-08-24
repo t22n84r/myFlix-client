@@ -131,7 +131,7 @@ export const MainView = () => {
         </Navbar>
 
         <Col className="d-flex flex-column justify-content-center align-items-center">
-          <Row xs={1} sm={2} md={3} lg={3} xl={3} gap={4}>
+          <Row sm={1} md={2} lg={3} xl={4} gap={4}>
             {movies.map((movie) => (
               <Col
                 key={movie.id}
@@ -152,5 +152,5 @@ export const MainView = () => {
   }
 
   // Render the main content within a row
-  return <Row className="justify-content-md-center">{mainContent}</Row>;
+  return <Row>{mainContent}</Row>;
 };

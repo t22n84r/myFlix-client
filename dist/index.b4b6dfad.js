@@ -2950,6 +2950,7 @@ var _indexScss = require("./index.scss"); // Import statement to indicate that y
 const MyFlixApplication = ()=>{
     // Main component (will eventually use all the others)
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
+        className: "py-3",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
             fileName: "src/index.jsx",
             lineNumber: 13,
@@ -27523,11 +27524,10 @@ const MainView = ()=>{
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                 className: "d-flex flex-column justify-content-center align-items-center",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-                    xs: 1,
-                    sm: 2,
-                    md: 3,
+                    sm: 1,
+                    md: 2,
                     lg: 3,
-                    xl: 3,
+                    xl: 4,
                     gap: 4,
                     children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                             className: "d-flex flex-column justify-content-center align-items-center",
@@ -27564,7 +27564,6 @@ const MainView = ()=>{
     }, undefined);
     // Render the main content within a row
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-        className: "justify-content-md-center",
         children: mainContent
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
@@ -41199,10 +41198,10 @@ const MovieCard = (props)=>{
         },
         className: "d-flex flex-column align-items-center mt-4 custom-card-movieCard",
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.CardImg), {
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Image), {
                 src: props.movieCard.imageurl,
                 alt: props.movieCard.title,
-                className: "w-75 py-3"
+                className: "w-75 h-100 py-3"
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-card.jsx",
                 lineNumber: 19,
@@ -41213,28 +41212,6 @@ const MovieCard = (props)=>{
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-card.jsx",
                 lineNumber: 26,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                children: props.movieCard.director.map((director, index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                            children: [
-                                "Director: ",
-                                director.name
-                            ]
-                        }, void 0, true, {
-                            fileName: "src/components/movie-card/movie-card.jsx",
-                            lineNumber: 32,
-                            columnNumber: 13
-                        }, undefined)
-                    }, index, false, {
-                        fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 31,
-                        columnNumber: 11
-                    }, undefined))
-            }, void 0, false, {
-                fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 29,
                 columnNumber: 7
             }, undefined)
         ]

@@ -53,78 +53,100 @@ export const SignupView = () => {
   };
 
   return (
-    // Signup form card
-    <Card className="p-5 custom-card-signupView">
-      <Card.Body>
-        <Form onSubmit={handleSubmit}>
-          {/* Username field */}
-          <FormGroup controlId="formUsername" className="mb-3">
-            <FormControl
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              minLength={5}
-              maxLength={10}
-              placeholder="Username"
-            />
-          </FormGroup>
-
-          {/* Password field */}
-          <FormGroup controlId="formPassword" className="mb-3">
-            <FormControl
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={8}
-              maxLength={16}
-              placeholder="Password"
-            />
-          </FormGroup>
-
-          {/* Confirm Password field */}
-          <FormGroup controlId="formConfirmPassword" className="mb-3">
-            <FormControl
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              minLength={8}
-              maxLength={16}
-              placeholder="Confirm Password"
-            />
-          </FormGroup>
-
-          {/* Email field */}
-          <FormGroup controlId="formEmail" className="mb-3">
-            <FormControl
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              placeholder="Email"
-            />
-          </FormGroup>
-
-          {/* Birth Date field */}
-          <FormGroup controlId="formBirthday" className="mb-3">
-            <FormControl
-              type={inputType}
-              placeholder="Birth Date"
-              onFocus={handleFocus}
-              value={birthday}
-              onChange={(e) => setBirthday(e.target.value)}
-              required
-            />
-          </FormGroup>
-
-          {/* Submit button */}
-          <div className="d-grid gap-2">
-            <Button type="Submit">Sign Up</Button>
-          </div>
-        </Form>
-      </Card.Body>
-    </Card>
-  );
+		// Signup form card
+		<Card className="p-5 custom-card-signupView">
+			<Card.Body>
+				<Form onSubmit={handleSubmit}>
+					{/* Username field */}
+					<FormGroup controlId="formUsername" className="mb-3">
+						<FormLabel htmlFor="formUsername">Username</FormLabel> 
+						<FormControl
+							type="text"
+							id="formUsername"
+							value={username}
+							onChange={(e) => setUsername(e.target.value)}
+							required
+							minLength={5}
+							maxLength={10}
+							placeholder="Enter your username"
+							aria-describedby="usernameHelpBlock"
+						/>
+						<Form.Text id="usernameHelpBlock" className="text-warning">
+							Must be between 5 and 10 characters.
+						</Form.Text>
+					</FormGroup>
+		
+					{/* Password field */}
+					<FormGroup controlId="formPassword" className="mb-3">
+						<FormLabel htmlFor="formPassword">Password</FormLabel> 
+						<FormControl
+							type="password"
+							id="formPassword"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							required
+							minLength={8}
+							maxLength={16}
+							placeholder="Enter your password"
+							aria-describedby="passwordHelpBlock"
+						/>
+						<Form.Text id="passwordHelpBlock" className="text-warning">
+							Must be between 8 and 16 characters.
+						</Form.Text>
+					</FormGroup>
+		
+					{/* Confirm Password field */}
+					<FormGroup controlId="formConfirmPassword" className="mb-3">
+						<FormLabel htmlFor="formConfirmPassword">Confirm Password</FormLabel> 
+						<FormControl
+							type="password"
+							id="formConfirmPassword"
+							value={confirmPassword}
+							onChange={(e) => setConfirmPassword(e.target.value)}
+							required
+							minLength={8}
+							maxLength={16}
+							placeholder="Confirm your password"
+							aria-describedby="confirmPasswordHelpBlock"
+						/>
+						<Form.Text id="confirmPasswordHelpBlock" className="text-warning">
+							Must match the password above.
+						</Form.Text>
+					</FormGroup>
+		
+					{/* Email field */}
+					<FormGroup controlId="formEmail" className="mb-3">
+						<FormLabel htmlFor="formEmail">Email</FormLabel> 
+						<FormControl
+							type="email"
+							id="formEmail"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							required
+							placeholder="Enter your email"
+						/>
+					</FormGroup>
+		
+					{/* Birth Date field */}
+					<FormGroup controlId="formBirthday" className="mb-3">
+						<FormLabel htmlFor="formBirthday">Birth Date</FormLabel> 
+						<FormControl
+							type={inputType}
+							id="formBirthday"
+							placeholder="Select your birth date"
+							onFocus={handleFocus}
+							value={birthday}
+							onChange={(e) => setBirthday(e.target.value)}
+							required
+						/>
+					</FormGroup>
+		
+					{/* Submit button */}
+					<div className="d-grid gap-2">
+					<Button type="Submit">Sign Up</Button>
+					</div>
+				</Form>
+			</Card.Body>
+		</Card>
+ 	); 
 };

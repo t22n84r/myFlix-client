@@ -42,37 +42,47 @@ export const LoginView = (props) => {
   };
 
   return (
-    // Login form using React Bootstrap components
-    <Card className="p-5 custom-card-loginView">
-      <Card.Body>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formUsername" className="mb-3">
-            <Form.Control
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              placeholder="Username"
-            />
-          </Form.Group>
-
-          <Form.Group controlId="formPassword" className="mb-3">
-            <Form.Control
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              placeholder="Password"
-            />
-          </Form.Group>
-
-          <div className="d-grid gap-2">
-            <Button type="submit" variant="primary">
-              Sign In
-            </Button>
-          </div>
-        </Form>
-      </Card.Body>
-    </Card>
-  );
+	// Login form using React Bootstrap components
+		<Card className="p-5 custom-card-loginView">
+			<Card.Body>
+				<Form onSubmit={handleSubmit}>
+					{/* Username field */}
+					<Form.Group controlId="formUsername" className="mb-3">
+						<Form.Label htmlFor="usernameInput">Username</Form.Label>
+						<Form.Control
+							type="text"
+							id="usernameInput"
+							value={username}
+							onChange={(e) => setUsername(e.target.value)}
+							required
+							placeholder="Enter your username"
+							aria-describedby="usernameHelpBlock"
+						/>
+					</Form.Group>
+		
+					{/* Password field */}
+					<Form.Group controlId="formPassword" className="mb-3">
+						<Form.Label htmlFor="passwordInput">Password</Form.Label>
+						<Form.Control
+							type="password"
+							id="passwordInput"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							required
+							placeholder="Enter your password"
+							aria-describedby="passwordHelpBlock"
+						/>
+					</Form.Group>
+		
+					{/* Submit button */}
+					<div className="d-grid gap-2">
+					<Button type="submit" variant="primary">
+						Sign In
+					</Button>
+					</div>
+				</Form>
+			</Card.Body>
+		</Card>
+ 	);
+ 
 };

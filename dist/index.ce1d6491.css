@@ -24,10 +24,12 @@ body {
 }
 
 .custom-card-loginView {
+  color: #00fff5 !important;
   background-color: #393e46 !important;
 }
 
 .custom-card-signupView {
+  color: #00fff5 !important;
   background-color: #393e46 !important;
 }
 

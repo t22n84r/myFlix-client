@@ -1,0 +1,12 @@
+.custom-card-movieCard {
+   background-color: #393E46 !important;
+   color: #00FFF5 !important;
+   border-radius: 10px;
+   width: 250px !important;
+   height: 350px !important;
+   
+   @media (min-width: 1080px) {
+    width: 305 !important;
+    height: 420 !important;
+  }
+ }

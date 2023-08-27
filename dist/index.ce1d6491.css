@@ -33,12 +33,14 @@ body {
   background-color: #393e46 !important;
 }
 
+
+
 .custom-navbar {
   background-color: #393e46 !important;
   border-radius: 5px !important;
 }
 
-.custom-navbar-brand {
+.custom-navbar-brand, .custom-nav-link {
   color: #00fff5 !important;
 }
 

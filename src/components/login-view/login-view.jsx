@@ -47,7 +47,7 @@ export const LoginView = (props) => {
 			<Card.Body>
 				<Form onSubmit={handleSubmit}>
 					{/* Username field */}
-					<Form.Group controlId="formUsername" className="mb-3">
+					<Form.Group className="mb-3">
 						<Form.Label htmlFor="usernameInput">Username</Form.Label>
 						<Form.Control
 							type="text"
@@ -61,7 +61,7 @@ export const LoginView = (props) => {
 					</Form.Group>
 		
 					{/* Password field */}
-					<Form.Group controlId="formPassword" className="mb-3">
+					<Form.Group className="mb-3">
 						<Form.Label htmlFor="passwordInput">Password</Form.Label>
 						<Form.Control
 							type="password"

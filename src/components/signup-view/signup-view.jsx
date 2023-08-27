@@ -58,7 +58,7 @@ export const SignupView = () => {
 			<Card.Body>
 				<Form onSubmit={handleSubmit}>
 					{/* Username field */}
-					<FormGroup controlId="formUsername" className="mb-3">
+					<FormGroup className="mb-3">
 						<FormLabel htmlFor="formUsername">Username</FormLabel> 
 						<FormControl
 							type="text"
@@ -77,7 +77,7 @@ export const SignupView = () => {
 					</FormGroup>
 		
 					{/* Password field */}
-					<FormGroup controlId="formPassword" className="mb-3">
+					<FormGroup className="mb-3">
 						<FormLabel htmlFor="formPassword">Password</FormLabel> 
 						<FormControl
 							type="password"
@@ -96,7 +96,7 @@ export const SignupView = () => {
 					</FormGroup>
 		
 					{/* Confirm Password field */}
-					<FormGroup controlId="formConfirmPassword" className="mb-3">
+					<FormGroup className="mb-3">
 						<FormLabel htmlFor="formConfirmPassword">Confirm Password</FormLabel> 
 						<FormControl
 							type="password"
@@ -115,7 +115,7 @@ export const SignupView = () => {
 					</FormGroup>
 		
 					{/* Email field */}
-					<FormGroup controlId="formEmail" className="mb-3">
+					<FormGroup className="mb-3">
 						<FormLabel htmlFor="formEmail">Email</FormLabel> 
 						<FormControl
 							type="email"
@@ -128,7 +128,7 @@ export const SignupView = () => {
 					</FormGroup>
 		
 					{/* Birth Date field */}
-					<FormGroup controlId="formBirthday" className="mb-3">
+					<FormGroup className="mb-3">
 						<FormLabel htmlFor="formBirthday">Birth Date</FormLabel> 
 						<FormControl
 							type={inputType}

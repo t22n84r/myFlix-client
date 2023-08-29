@@ -46,9 +46,9 @@ export const ProfileView = (props) => {
     })
       .then((response) => {
         if (response.ok) {
-          return response.json(); // Return the response JSON data
+          return response.json();
         } else {
-          throw new Error("Change failed"); // Throw an error for failed requests
+          throw new Error("Change failed");
         }
       })
       .then((updatedUser) => {
@@ -66,7 +66,7 @@ export const ProfileView = (props) => {
          window.location.reload();
       })
       .catch((error) => {
-        alert(error.message); // Handle error messages here
+        alert(error.message);
       });
     
   };
@@ -87,6 +87,7 @@ export const ProfileView = (props) => {
       setShowConfirmModal(false);
    };
 
+   // Handle delete account button click
    const handleDeleteAccount = () => {
 
       fetch(
@@ -240,7 +241,7 @@ export const ProfileView = (props) => {
             })}
          </Row>
 
-            
+         {/* Modal for account delete confirmation */}   
          <Modal show={showConfirmModal} onHide={closeConfirmModal}>
             <Modal.Header closeButton>
                <Modal.Title>Confirm Account Deletion</Modal.Title>

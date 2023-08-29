@@ -29,7 +29,10 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
                      <Nav.Link eventKey="1" className="text-light" as={Link} to="/">Home</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                     <Nav.Link eventKey="2" className="text-light" onClick={onLoggedOut}>Logout</Nav.Link>
+                     <Nav.Link eventKey="2" className="text-light" as={Link} to="/profile">Profile</Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                     <Nav.Link eventKey="3" className="text-light" onClick={onLoggedOut}>Logout</Nav.Link>
                   </Nav.Item>
                </Nav>
             )}

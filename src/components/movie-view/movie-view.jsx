@@ -1,29 +1,106 @@
 /** @format */
 
-import React from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
-import { Button, Card, CardImg, Col, Row } from "react-bootstrap";
+import { Button, ButtonGroup, Card, CardImg, Col, Row, ToggleButton } from "react-bootstrap";
 import "./movie-view.scss";
+import { useState } from "react";
 
 export const MovieView = (props) => {
   // Display detailed information about a movie
 
-  const { movieTitle } = useParams();
-  
-  const movie = props.movieView.find((m) => m.title === movieTitle);
+  const [user, setUser] = useState(props.movieView.user);
 
-  const similarMovies = props.movieView.filter(
+  // handle back navigation on a movie view page
+  const naivigate = useNavigate();
+  const handleBack = () => { naivigate(-1); };
+
+  const { movieTitle } = useParams();
+  const movie = props.movieView.movies.find((m) => m.title === movieTitle);
+
+  //creating the similar movies array
+  const similarMovies = props.movieView.movies.filter(
     (similarMovie) =>
     similarMovie.genre.name === movie.genre.name &&
     movie.id !== similarMovie.id
   );
 
+  const addToFavorites = () => {
+    // PUT request to update user favorite movies
+    fetch(
+      `https://high-triode-348322.lm.r.appspot.com/users/${user.username}/${movie.id}`,
+      {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/json",
+         "Authorization": `Bearer ${props.movieView.token}`
+        },
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Change failed');
+        }
+      })
+      .then((updatedUser) => {
+        setUser((prevUser) => {
+          return {
+            ...prevUser,
+            ...updatedUser,
+          };
+        });
+        localStorage.setItem('user', JSON.stringify({ ...user, ...updatedUser }));
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
+  const removeFromFavorites = () => {
+    // DELETE request to remove movie from user's favorite movies
+    fetch(
+      `https://high-triode-348322.lm.r.appspot.com/users/${user.username}/${movie.id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          "Content-Type": "application/json",
+         "Authorization": `Bearer ${props.movieView.token}`
+        },
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Change failed');
+        }
+      })
+      .then((updatedUser) => {
+        setUser((prevUser) => {
+          return {
+            ...prevUser,
+            ...updatedUser,
+          };
+        });
+        localStorage.setItem('user', JSON.stringify({ ...user, ...updatedUser }));
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
+  const isFavorite = user.favoriteMovies.includes(movie.id);
+  const [checked, setChecked] = useState(isFavorite);
+
   return (
-    <Col>
-      // Card containing movie details
-      <Card className="d-flex flex-column align-items-center py-3 my-5 custom-card-movieView">
+    <Col className="custom-movieView">
+      {/*Card containing movie details*/}
+      <Card className="d-flex flex-column align-items-center py-3 my-5 custom-movieView">
         {/* Movie image */}
         <CardImg
           variant="top"
@@ -65,19 +142,51 @@ export const MovieView = (props) => {
           </Card.Title>
         </Card.Body>
 
-        {/* Back button */}
-        <Link to="/">
-          <Button variant="info" size="lg" >
-          <h3>Back</h3>
+        <Card.Body className="d-flex align-items-center w-100">
+
+          {/* Add to favorites button */}
+
+          <ButtonGroup className="mb-2">
+            <ToggleButton
+              type="checkbox"
+              variant="outline-success"
+              size="lg"
+              className="align-self-start mx-5"
+              checked={checked}
+              onChange={(e) => setChecked(e.currentTarget.checked)}
+              disabled={isFavorite}
+              onClick={!isFavorite ? addToFavorites : undefined}
+              aria-label="add to favorites, active only when movie is not in favorite list"
+            >
+              Add to Favorites
+            </ToggleButton>
+          </ButtonGroup>
+
+          {/* Remove from favorites button */}
+          <Button variant="danger" size="lg" 
+            className="align-self-start mx-5" 
+            onClick={removeFromFavorites}
+            disabled={!isFavorite}
+            aria-label="Remove from Favorites, active only when movie is in favorite list">
+            Remove from Favorites
           </Button>
-        </Link>
+
+          {/* "Back" button */}
+          <Button variant="info" size="lg" 
+            className="ms-auto" 
+            onClick={handleBack}
+            aria-label="Go to previous view">
+            Back
+          </Button>
+        </Card.Body>
+
       </Card>
 
       {/* Similar movies */}
       <hr />
       <h2 className="text-center">Similar movies</h2>
 
-      <Row xs={1} sm={2} md={3} lg={3} xl={3} gap={4}>
+      <Row sm={1} md={2} lg={3} xl={4} gap={4}>
         {similarMovies.map((movie) => (
           <Col
             key={movie.id}

@@ -1,6 +1,7 @@
 /** @format */
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -19,6 +20,7 @@ export const SignupView = () => {
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
   const [inputType, setInputType] = useState("text");
+  const navigate = useNavigate();
 
   // Handle form submission
   const handleSubmit = (event) => {
@@ -40,9 +42,19 @@ export const SignupView = () => {
     }).then((response) => {
       if (response.ok) {
         alert("Signup successful");
-        window.location.reload();
+        navigate("/login");
       } else {
-        alert("Signup failed");
+			response.json().then((responseData) => {
+				if (responseData.errors && responseData.errors.length > 0) {
+				  const errorMessage = responseData.errors[0].msg;
+				  alert(`Signup failed: ${errorMessage}`);
+				} else {
+				  alert("Signup failed");
+				}
+			 }).catch((error) => {
+				console.error("Error parsing response JSON:", error);
+				alert("Signup failed");
+			 });
       }
     });
   };
@@ -143,7 +155,7 @@ export const SignupView = () => {
 		
 					{/* Submit button */}
 					<div className="d-grid gap-2">
-					<Button type="Submit">Sign Up</Button>
+					<Button type="Submit" aria-label="Sign Up">Sign Up</Button>
 					</div>
 				</Form>
 			</Card.Body>

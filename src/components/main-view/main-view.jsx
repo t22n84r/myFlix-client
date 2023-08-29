@@ -5,6 +5,7 @@ import { MovieView } from "../movie-view/movie-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import { ProfileView } from "../profile-view/profile-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { Col, Row } from "react-bootstrap";
 import "./main-view.scss";
@@ -102,6 +103,26 @@ export const MainView = () => {
         />
 
         <Route
+        path="/profile"
+        element={
+          <div>
+            {
+              !user ? ( <Navigate to="/login" replace />) : (movies.length === 0) ? (<div> The movie list is empty. </div>) : (
+                <Col className="vh-100 d-flex flex-column justify-content-center align-items-center">
+                  <ProfileView profileView={{user, token, movies}} 
+                  onAccountDeleted={() => {
+                    setUser(null);
+                    setToken(null);
+                    localStorage.clear();
+                  }}/>
+                </Col>   
+              )
+            }
+          </div>
+        }
+        />
+
+        <Route
           path="/"
           element={
             <div>
@@ -134,7 +155,7 @@ export const MainView = () => {
               !user ? ( <Navigate to="/login" replace />) : (movies.length === 0) ? (<div> The movie list is empty. </div>) : (
                 
                   <MovieView
-                    movieView={movies}
+                    movieView={{movies, user, token}}
                   />
               )
             }

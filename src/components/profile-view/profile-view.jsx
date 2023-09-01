@@ -1,7 +1,6 @@
 import { Form, FormGroup, FormLabel, FormControl, Button, Col, Row, Modal } from "react-bootstrap";
 import "./profile-view.scss";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 
 export const ProfileView = (props) => {
@@ -15,7 +14,6 @@ export const ProfileView = (props) => {
    const [inputType, setInputType] = useState("text");
    const [user, setUser] = useState(props.profileView.user);
    const [showConfirmModal, setShowConfirmModal] = useState(false);
-   const navigate = useNavigate();
 
    // Handle form submission
    const handleSubmit = (event) => {

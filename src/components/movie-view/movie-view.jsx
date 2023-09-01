@@ -1,7 +1,6 @@
 /** @format */
 
 import { useNavigate, useParams } from "react-router";
-import { Link } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 import { Button, ButtonGroup, Card, CardImg, Col, Row, ToggleButton } from "react-bootstrap";
 import "./movie-view.scss";

@@ -21,9 +21,9 @@ Welcome to the MyFlix Movie Database App. Dive into the world of cinema with thi
 ## Installation
 
 1. Clone this repository:
-\```bash
-git clone [repository_url]
-\```
+```bash
+git clone [https://github.com/t22n84r/myFlix-client]
+```
 
 2. Navigate to the project directory:
 \```bash

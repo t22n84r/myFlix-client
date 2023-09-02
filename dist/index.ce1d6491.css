@@ -1,17 +1,19 @@
-body {
-  color: #fff;
-  background-color: #000;
+.divStyle {
+  background-color: #393e46 !important;
+  min-height: 100vh !important;
 }
 
-.custom-card-movieView {
+.custom-movieView {
   color: #00fff5 !important;
   background-color: #393e46 !important;
+  border-color: #00fff5 !important;
 }
 
 .custom-card-movieCard {
   border-radius: 10px;
   color: #00fff5 !important;
   background-color: #393e46 !important;
+  border-color: #00fff5 !important;
   width: 250px !important;
   height: 350px !important;
 }
@@ -26,6 +28,7 @@ body {
 .custom-card-loginView {
   color: #00fff5 !important;
   background-color: #393e46 !important;
+  border-color: #00fff5 !important;
 }
 
 .custom-card-signupView {
@@ -33,13 +36,24 @@ body {
   background-color: #393e46 !important;
 }
 
+
+
 .custom-navbar {
   background-color: #393e46 !important;
   border-radius: 5px !important;
 }
 
-.custom-navbar-brand {
+.custom-navbar-brand, .custom-nav-link {
   color: #00fff5 !important;
+}
+
+.custom-profileView {
+  color: #00fff5 !important;
+  background-color: #393e46 !important;
+}
+
+.custom-form {
+  max-width: 400px !important;
 }
 
 :root, [data-bs-theme="light"] {

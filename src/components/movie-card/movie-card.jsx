@@ -4,28 +4,24 @@
 import PropTypes from "prop-types";
 import { Card, Image } from "react-bootstrap";
 import "./movie-card.scss"; // Import the custom SCSS for MovieCard styles
+import { Link } from "react-router-dom";
 
 // Define the MovieCard component
 export const MovieCard = (props) => {
   // Render the movie card view
   return (
-    <Card
-      onClick={() => {
-        props.onMovieClick(props.movieCard);
-      }}
-      className="d-flex flex-column align-items-center mt-4 custom-card-movieCard"
-    >
-      {/* Movie image */}
-      <Image
-        src={props.movieCard.imageurl}
-        alt={props.movieCard.title}
-        className="w-75 h-100 py-3"
-      />
-
-      {/* Movie title */}
-      <Card.Title>{props.movieCard.title}</Card.Title>
-
-    </Card>
+    <Link to={`/movies/${encodeURIComponent(props.movieCard.title)}`}>
+      <Card className="d-flex flex-column align-items-center mt-4 custom-card-movieCard" >
+        {/* Movie image */}
+        <Image
+          src={props.movieCard.imageurl}
+          alt={props.movieCard.title}
+          className="w-75 h-100 py-3"
+        />
+        {/* Movie title */}
+        <Card.Title>{props.movieCard.title}</Card.Title>
+      </Card>
+    </Link>
   );
 };
 
@@ -50,8 +46,6 @@ MovieCard.propTypes = {
     imageurl: PropTypes.string.isRequired,
     featured: PropTypes.bool.isRequired
   }).isRequired,
-
-  onMovieClick: PropTypes.func.isRequired // Function to handle movie click
 };
 
 export default MovieCard; // Export the component

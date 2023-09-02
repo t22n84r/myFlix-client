@@ -9,9 +9,11 @@ const MyFlixApplication = () => {
   // Main component (will eventually use all the others)
 
   return (
-    <Container className="py-3">
-      <MainView />
-    </Container>
+    <div className="divStyle">
+      <Container className="py-3">
+        <MainView />
+      </Container>
+    </div>
   );
 };
 

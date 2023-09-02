@@ -23,7 +23,6 @@ export const LoginView = (props) => {
       .then((response) => response.json()) // Parse response as JSON
 
       .then((data) => {
-        console.log("Login response: ", data);
 
         if (data.user) {
           // If login successful, store user and token in local storage
@@ -33,7 +32,7 @@ export const LoginView = (props) => {
           // Call parent component's callback function to indicate successful login
           props.onLoggedIn(data.user, data.token);
         } else {
-          alert("Login failed"); // Display alert for failed login
+				alert(JSON.stringify(data.errors, null, 2));
         }
       })
       .catch((error) => {
@@ -47,7 +46,7 @@ export const LoginView = (props) => {
 			<Card.Body>
 				<Form onSubmit={handleSubmit}>
 					{/* Username field */}
-					<Form.Group controlId="formUsername" className="mb-3">
+					<Form.Group className="mb-3">
 						<Form.Label htmlFor="usernameInput">Username</Form.Label>
 						<Form.Control
 							type="text"
@@ -61,7 +60,7 @@ export const LoginView = (props) => {
 					</Form.Group>
 		
 					{/* Password field */}
-					<Form.Group controlId="formPassword" className="mb-3">
+					<Form.Group className="mb-3">
 						<Form.Label htmlFor="passwordInput">Password</Form.Label>
 						<Form.Control
 							type="password"
@@ -76,7 +75,8 @@ export const LoginView = (props) => {
 		
 					{/* Submit button */}
 					<div className="d-grid gap-2">
-					<Button type="submit" variant="primary">
+					<Button type="submit" variant="primary"
+						aria-label="Sign In">
 						Sign In
 					</Button>
 					</div>

@@ -1,6 +1,7 @@
 /** @format */
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -19,6 +20,7 @@ export const SignupView = () => {
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
   const [inputType, setInputType] = useState("text");
+  const navigate = useNavigate();
 
   // Handle form submission
   const handleSubmit = (event) => {
@@ -40,9 +42,19 @@ export const SignupView = () => {
     }).then((response) => {
       if (response.ok) {
         alert("Signup successful");
-        window.location.reload();
+        navigate("/login");
       } else {
-        alert("Signup failed");
+			response.json().then((responseData) => {
+				if (responseData.errors && responseData.errors.length > 0) {
+				  const errorMessage = responseData.errors[0].msg;
+				  alert(`Signup failed: ${errorMessage}`);
+				} else {
+				  alert("Signup failed");
+				}
+			 }).catch((error) => {
+				console.error("Error parsing response JSON:", error);
+				alert("Signup failed");
+			 });
       }
     });
   };
@@ -58,7 +70,7 @@ export const SignupView = () => {
 			<Card.Body>
 				<Form onSubmit={handleSubmit}>
 					{/* Username field */}
-					<FormGroup controlId="formUsername" className="mb-3">
+					<FormGroup className="mb-3">
 						<FormLabel htmlFor="formUsername">Username</FormLabel> 
 						<FormControl
 							type="text"
@@ -77,7 +89,7 @@ export const SignupView = () => {
 					</FormGroup>
 		
 					{/* Password field */}
-					<FormGroup controlId="formPassword" className="mb-3">
+					<FormGroup className="mb-3">
 						<FormLabel htmlFor="formPassword">Password</FormLabel> 
 						<FormControl
 							type="password"
@@ -96,7 +108,7 @@ export const SignupView = () => {
 					</FormGroup>
 		
 					{/* Confirm Password field */}
-					<FormGroup controlId="formConfirmPassword" className="mb-3">
+					<FormGroup className="mb-3">
 						<FormLabel htmlFor="formConfirmPassword">Confirm Password</FormLabel> 
 						<FormControl
 							type="password"
@@ -115,7 +127,7 @@ export const SignupView = () => {
 					</FormGroup>
 		
 					{/* Email field */}
-					<FormGroup controlId="formEmail" className="mb-3">
+					<FormGroup className="mb-3">
 						<FormLabel htmlFor="formEmail">Email</FormLabel> 
 						<FormControl
 							type="email"
@@ -128,7 +140,7 @@ export const SignupView = () => {
 					</FormGroup>
 		
 					{/* Birth Date field */}
-					<FormGroup controlId="formBirthday" className="mb-3">
+					<FormGroup className="mb-3">
 						<FormLabel htmlFor="formBirthday">Birth Date</FormLabel> 
 						<FormControl
 							type={inputType}
@@ -143,7 +155,7 @@ export const SignupView = () => {
 		
 					{/* Submit button */}
 					<div className="d-grid gap-2">
-					<Button type="Submit">Sign Up</Button>
+					<Button type="Submit" aria-label="Sign Up">Sign Up</Button>
 					</div>
 				</Form>
 			</Card.Body>

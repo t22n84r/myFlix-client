@@ -27325,10 +27325,12 @@ var _movieCard = require("../movie-card/movie-card");
 var _loginView = require("../login-view/login-view");
 var _signupView = require("../signup-view/signup-view");
 var _profileView = require("../profile-view/profile-view");
+var _genreCard = require("../genre-card/genre-card");
+var _directorCard = require("../director-card/director-card");
 var _navigationBar = require("../navigation-bar/navigation-bar");
+var _reactRouterDom = require("react-router-dom");
 var _reactBootstrap = require("react-bootstrap");
 var _mainViewScss = require("./main-view.scss");
-var _reactRouterDom = require("react-router-dom");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
@@ -27340,6 +27342,9 @@ const MainView = ()=>{
     const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
     // Initialize movies states
     const [movies, setMovies] = (0, _react.useState)([]);
+    // Initialize movie search states
+    const [searchTerm, setSearchTerm] = (0, _react.useState)("");
+    const [filteredMovies, setFilteredMovies] = (0, _react.useState)([]);
     // Fetch movies data based on token when component mounts
     (0, _react.useEffect)(()=>{
         if (!token) return;
@@ -27366,6 +27371,23 @@ const MainView = ()=>{
     }, [
         token
     ]);
+    const handleInputChange = (event)=>{
+        const value = event.target.value;
+        setSearchTerm(value);
+        if (value.trim() === "") setFilteredMovies([]);
+        else {
+            const filtered = movies.filter((movie)=>movie.title.toLowerCase().includes(value.toLowerCase()));
+            setFilteredMovies(filtered);
+        }
+    };
+    const getUniqueGenres = (movies)=>{
+        return movies.map((movie)=>movie.genre).filter((genre, index, self)=>index === self.findIndex((g)=>g.name === genre.name));
+    };
+    const getUniqueDirectors = (movies)=>{
+        const allDirectors = movies.flatMap((movie)=>movie.director);
+        const uniqueDirectors = allDirectors.filter((director, index, self)=>index === self.findIndex((d)=>d.name === director.name));
+        return uniqueDirectors;
+    };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.BrowserRouter), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _navigationBar.NavigationBar), {
@@ -27377,7 +27399,7 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 61,
+                lineNumber: 95,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Routes), {
@@ -27389,17 +27411,41 @@ const MainView = ()=>{
                                 to: "/"
                             }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                 className: "vh-100 d-flex flex-column justify-content-center align-items-center",
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-                                    onLoggedIn: (user, token)=>{
-                                        setUser(user);
-                                        setToken(token);
-                                    }
-                                }, void 0, false, void 0, void 0)
-                            }, void 0, false, void 0, void 0)
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                                        className: "text-center custom-color",
+                                        children: "Welcome to"
+                                    }, void 0, false, void 0, void 0),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                                        className: "text-center my-5 custom-color",
+                                        children: "MyFlix!"
+                                    }, void 0, false, void 0, void 0),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                                        className: "text-center mb-5 custom-color",
+                                        children: "Dive into the world of cinema"
+                                    }, void 0, false, void 0, void 0),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
+                                        onLoggedIn: (user, token)=>{
+                                            setUser(user);
+                                            setToken(token);
+                                        }
+                                    }, void 0, false, void 0, void 0),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                        className: "mt-3 custom-color",
+                                        children: [
+                                            "Don't have an account? ",
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                                                to: "/register",
+                                                children: "Sign Up"
+                                            }, void 0, false, void 0, void 0)
+                                        ]
+                                    }, void 0, true, void 0, void 0)
+                                ]
+                            }, void 0, true, void 0, void 0)
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 68,
+                        lineNumber: 102,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27409,12 +27455,26 @@ const MainView = ()=>{
                                 to: "/"
                             }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                 className: "vh-100 d-flex flex-column justify-content-center align-items-center",
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, void 0, void 0)
-                            }, void 0, false, void 0, void 0)
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                                        className: "text-center custom-color",
+                                        children: "Welcome to"
+                                    }, void 0, false, void 0, void 0),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                                        className: "text-center my-5 custom-color",
+                                        children: "MyFlix!"
+                                    }, void 0, false, void 0, void 0),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                                        className: "text-center mb-5 custom-color",
+                                        children: "Dive into the world of cinema"
+                                    }, void 0, false, void 0, void 0),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, void 0, void 0)
+                                ]
+                            }, void 0, true, void 0, void 0)
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 89,
+                        lineNumber: 129,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27443,7 +27503,7 @@ const MainView = ()=>{
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 105,
+                        lineNumber: 148,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27454,26 +27514,49 @@ const MainView = ()=>{
                                 replace: true
                             }, void 0, false, void 0, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                 children: " The movie list is empty. "
-                            }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                                className: "d-flex flex-column justify-content-center align-items-center",
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-                                    sm: 1,
-                                    md: 2,
-                                    lg: 3,
-                                    xl: 4,
-                                    gap: 4,
-                                    children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                                            className: "d-flex flex-column justify-content-center align-items-center",
-                                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                                                movieCard: movie
+                            }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "d-flex flex-column",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                                        className: "d-flex ms-auto my-3",
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                                htmlFor: "movieSearch",
+                                                className: "form-label custom-color ms-auto",
+                                                children: "Search Movies"
+                                            }, void 0, false, void 0, void 0),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                                className: "form-control",
+                                                id: "movieSearch",
+                                                placeholder: "Search for movies by title...",
+                                                value: searchTerm,
+                                                onChange: handleInputChange
                                             }, void 0, false, void 0, void 0)
-                                        }, movie.id, false, void 0, void 0))
-                                }, void 0, false, void 0, void 0)
-                            }, void 0, false, void 0, void 0)
+                                        ]
+                                    }, void 0, true, void 0, void 0),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                                        className: "d-flex flex-column justify-content-center align-items-center",
+                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                                            sm: 1,
+                                            md: 2,
+                                            lg: 3,
+                                            xl: 4,
+                                            gap: 4,
+                                            className: "w-100",
+                                            children: (filteredMovies.length > 0 ? filteredMovies : movies).map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                                                    className: "d-flex flex-column justify-content-center align-items-center",
+                                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                                                        movieCard: movie
+                                                    }, void 0, false, void 0, void 0)
+                                                }, movie.id, false, void 0, void 0))
+                                        }, void 0, false, void 0, void 0)
+                                    }, void 0, false, void 0, void 0)
+                                ]
+                            }, void 0, true, void 0, void 0)
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 125,
+                        lineNumber: 168,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27494,23 +27577,80 @@ const MainView = ()=>{
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 150,
+                        lineNumber: 205,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+                        path: "/genres",
+                        element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
+                                to: "/login",
+                                replace: true
+                            }, void 0, false, void 0, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                children: " The movie list is empty. "
+                            }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                                className: "d-flex flex-column justify-content-center align-items-center",
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                                    sm: 2,
+                                    md: 3,
+                                    lg: 4,
+                                    xl: 5,
+                                    gap: 4,
+                                    children: getUniqueGenres(movies).map((genre)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _genreCard.GenreCard), {
+                                                genreCard: {
+                                                    genre,
+                                                    movies
+                                                }
+                                            }, void 0, false, void 0, void 0)
+                                        }, genre.name, false, void 0, void 0))
+                                }, void 0, false, void 0, void 0)
+                            }, void 0, false, void 0, void 0)
+                        }, void 0, false, void 0, void 0)
+                    }, void 0, false, {
+                        fileName: "src/components/main-view/main-view.jsx",
+                        lineNumber: 221,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+                        path: "/directors",
+                        element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
+                                to: "/login",
+                                replace: true
+                            }, void 0, false, void 0, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                children: " The movie list is empty. "
+                            }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                                className: "mt-5",
+                                children: getUniqueDirectors(movies).map((director)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _directorCard.DirectorCard), {
+                                            directorCard: {
+                                                director,
+                                                movies
+                                            }
+                                        }, void 0, false, void 0, void 0)
+                                    }, director.name, false, void 0, void 0))
+                            }, void 0, false, void 0, void 0)
+                        }, void 0, false, void 0, void 0)
+                    }, void 0, false, {
+                        fileName: "src/components/main-view/main-view.jsx",
+                        lineNumber: 243,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 67,
+                lineNumber: 101,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 59,
+        lineNumber: 93,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "vrQobkEX5jhNcI69dtstaSSmWyg=");
+_s(MainView, "nJldoi5AiyHzaYdXWGguSy9uyQ0=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -27520,7 +27660,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-view/movie-view":"ggaUx","../movie-card/movie-card":"bwuIu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","react-bootstrap":"3AD9A","./main-view.scss":"eBaMl","../navigation-bar/navigation-bar":"bsPVM","react-router-dom":"9xmpe","../profile-view/profile-view":"2vVqf"}],"ggaUx":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-view/movie-view":"ggaUx","../movie-card/movie-card":"bwuIu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","react-bootstrap":"3AD9A","./main-view.scss":"eBaMl","../navigation-bar/navigation-bar":"bsPVM","react-router-dom":"9xmpe","../profile-view/profile-view":"2vVqf","../genre-card/genre-card":"kxNeW","../director-card/director-card":"cJ3MH"}],"ggaUx":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$e9f6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -47788,8 +47928,8 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                         eventKey: "2",
                                         className: "text-light",
                                         as: (0, _reactRouterDom.Link),
-                                        to: "/profile",
-                                        children: "Profile"
+                                        to: "/genres",
+                                        children: "Genres"
                                     }, void 0, false, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
                                         lineNumber: 32,
@@ -47804,8 +47944,9 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                         eventKey: "3",
                                         className: "text-light",
-                                        onClick: onLoggedOut,
-                                        children: "Logout"
+                                        as: (0, _reactRouterDom.Link),
+                                        to: "/directors",
+                                        children: "Directors"
                                     }, void 0, false, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
                                         lineNumber: 35,
@@ -47814,6 +47955,39 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                 }, void 0, false, {
                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
                                     lineNumber: 34,
+                                    columnNumber: 19
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Item, {
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                        eventKey: "4",
+                                        className: "text-light",
+                                        as: (0, _reactRouterDom.Link),
+                                        to: "/profile",
+                                        children: "Profile"
+                                    }, void 0, false, {
+                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                        lineNumber: 38,
+                                        columnNumber: 22
+                                    }, undefined)
+                                }, void 0, false, {
+                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                    lineNumber: 37,
+                                    columnNumber: 19
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Item, {
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                        eventKey: "5",
+                                        className: "text-light",
+                                        onClick: onLoggedOut,
+                                        children: "Logout"
+                                    }, void 0, false, {
+                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                        lineNumber: 41,
+                                        columnNumber: 22
+                                    }, undefined)
+                                }, void 0, false, {
+                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                    lineNumber: 40,
                                     columnNumber: 19
                                 }, undefined)
                             ]
@@ -48350,6 +48524,388 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","./profile-view.scss":"eyKYH","react":"21dqq","../movie-card/movie-card":"bwuIu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"eyKYH":[function() {},{}],"i5LP7":[function() {},{}]},["4s3Ar","1xC6H","d8Dch"], "d8Dch", "parcelRequireaec4")
+},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","./profile-view.scss":"eyKYH","react":"21dqq","../movie-card/movie-card":"bwuIu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"eyKYH":[function() {},{}],"kxNeW":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$6243 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$6243.prelude(module);
+
+try {
+/** @format */ // Import PropTypes and required components
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "GenreCard", ()=>GenreCard);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _react = require("react");
+var _reactBootstrap = require("react-bootstrap");
+var _movieCard = require("../movie-card/movie-card");
+var _genreCardScss = require("./genre-card.scss"); // Import the custom SCSS for GenreCard styles
+var _s = $RefreshSig$();
+const GenreCard = (props)=>{
+    _s();
+    const [showDetailsModal, setShowDetailsModal] = (0, _react.useState)(false);
+    // Handle modal open & close event
+    const openDetailsModal = ()=>{
+        setShowDetailsModal(true);
+    };
+    const closeDetailsModal = ()=>{
+        setShowDetailsModal(false);
+    };
+    //creating the suggested movies array
+    const suggestedMovies = props.genreCard.movies.filter((genreCardMovie)=>genreCardMovie.genre.name === props.genreCard.genre.name);
+    // Render the genre card view
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
+                className: "d-flex flex-column align-items-center justify-content-center mt-4 custom-card-genreCard",
+                onClick: openDetailsModal,
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
+                    children: props.genreCard.genre.name
+                }, void 0, false, {
+                    fileName: "src/components/genre-card/genre-card.jsx",
+                    lineNumber: 35,
+                    columnNumber: 9
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/components/genre-card/genre-card.jsx",
+                lineNumber: 32,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal), {
+                show: showDetailsModal,
+                onHide: closeDetailsModal,
+                className: "d-flex p-5 align-items-center justify-content-center text-center",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Header, {
+                        className: "text-center justify-content-center",
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Title, {
+                            children: props.genreCard.genre.name
+                        }, void 0, false, {
+                            fileName: "src/components/genre-card/genre-card.jsx",
+                            lineNumber: 40,
+                            columnNumber: 13
+                        }, undefined)
+                    }, void 0, false, {
+                        fileName: "src/components/genre-card/genre-card.jsx",
+                        lineNumber: 39,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Body, {
+                        children: [
+                            props.genreCard.genre.description,
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
+                                fileName: "src/components/genre-card/genre-card.jsx",
+                                lineNumber: 44,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
+                                children: "Suggested movies from this genre"
+                            }, void 0, false, {
+                                fileName: "src/components/genre-card/genre-card.jsx",
+                                lineNumber: 45,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                                sm: 1,
+                                md: 2,
+                                lg: 3,
+                                xl: 4,
+                                gap: 4,
+                                children: suggestedMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                                        className: "d-flex flex-column justify-content-center align-items-center",
+                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                                            movieCard: movie
+                                        }, void 0, false, {
+                                            fileName: "src/components/genre-card/genre-card.jsx",
+                                            lineNumber: 53,
+                                            columnNumber: 17
+                                        }, undefined)
+                                    }, movie.id, false, {
+                                        fileName: "src/components/genre-card/genre-card.jsx",
+                                        lineNumber: 49,
+                                        columnNumber: 15
+                                    }, undefined))
+                            }, void 0, false, {
+                                fileName: "src/components/genre-card/genre-card.jsx",
+                                lineNumber: 47,
+                                columnNumber: 11
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/genre-card/genre-card.jsx",
+                        lineNumber: 42,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
+                        className: "justify-content-center",
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                            variant: "warning",
+                            size: "lg",
+                            onClick: closeDetailsModal,
+                            children: "Close"
+                        }, void 0, false, {
+                            fileName: "src/components/genre-card/genre-card.jsx",
+                            lineNumber: 59,
+                            columnNumber: 13
+                        }, undefined)
+                    }, void 0, false, {
+                        fileName: "src/components/genre-card/genre-card.jsx",
+                        lineNumber: 58,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/genre-card/genre-card.jsx",
+                lineNumber: 38,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/genre-card/genre-card.jsx",
+        lineNumber: 31,
+        columnNumber: 5
+    }, undefined);
+};
+_s(GenreCard, "x5id/bedojiH6gBqRr9/A6FYdG0=");
+_c = GenreCard;
+// Prop types validation
+GenreCard.propTypes = {
+    genreCard: (0, _propTypesDefault.default).shape({
+        name: (0, _propTypesDefault.default).string.isRequired,
+        description: (0, _propTypesDefault.default).string.isRequired
+    }).isRequired
+};
+exports.default = GenreCard; // Export the component
+var _c;
+$RefreshReg$(_c, "GenreCard");
+
+  $parcel$ReactRefreshHelpers$6243.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","prop-types":"7wKI2","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./genre-card.scss":"eXDvZ","react":"21dqq","../movie-card/movie-card":"bwuIu"}],"eXDvZ":[function() {},{}],"cJ3MH":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$15d4 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$15d4.prelude(module);
+
+try {
+/** @format */ // Import PropTypes and required components
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "DirectorCard", ()=>DirectorCard);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _react = require("react");
+var _reactBootstrap = require("react-bootstrap");
+var _movieCard = require("../movie-card/movie-card");
+var _directorCardScss = require("./director-card.scss"); // Import the custom SCSS for DirectorCard styles
+var _s = $RefreshSig$();
+const DirectorCard = (props)=>{
+    _s();
+    const [showDetailsModal, setShowDetailsModal] = (0, _react.useState)(false);
+    // Handle modal open & close event
+    const openDetailsModal = ()=>{
+        setShowDetailsModal(true);
+    };
+    const closeDetailsModal = ()=>{
+        setShowDetailsModal(false);
+    };
+    //creating the suggested movies array
+    const suggestedMovies = props.directorCard.movies.filter((directorCardMovie)=>directorCardMovie.director.some((director)=>director.name === props.directorCard.director.name));
+    // Render the director card view
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
+                role: "button",
+                className: "custom-card-directorCard",
+                onClick: openDetailsModal,
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                    children: props.directorCard.director.name
+                }, void 0, false, {
+                    fileName: "src/components/director-card/director-card.jsx",
+                    lineNumber: 37,
+                    columnNumber: 9
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/components/director-card/director-card.jsx",
+                lineNumber: 34,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal), {
+                show: showDetailsModal,
+                onHide: closeDetailsModal,
+                className: "d-flex p-5 align-items-center justify-content-center text-center",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Header, {
+                        className: "text-center justify-content-center",
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Title, {
+                            children: props.directorCard.director.name
+                        }, void 0, false, {
+                            fileName: "src/components/director-card/director-card.jsx",
+                            lineNumber: 42,
+                            columnNumber: 13
+                        }, undefined)
+                    }, void 0, false, {
+                        fileName: "src/components/director-card/director-card.jsx",
+                        lineNumber: 41,
+                        columnNumber: 10
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Body, {
+                        children: [
+                            props.directorCard.director.bio,
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "my-3",
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                            children: "Birth year: "
+                                        }, void 0, false, {
+                                            fileName: "src/components/director-card/director-card.jsx",
+                                            lineNumber: 47,
+                                            columnNumber: 16
+                                        }, undefined),
+                                        props.directorCard.director.birthyear.map((year, yearIndex)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                                children: [
+                                                    year,
+                                                    yearIndex !== props.directorCard.director.birthyear.length - 1 ? " - " : ""
+                                                ]
+                                            }, yearIndex, true, {
+                                                fileName: "src/components/director-card/director-card.jsx",
+                                                lineNumber: 49,
+                                                columnNumber: 19
+                                            }, undefined))
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/director-card/director-card.jsx",
+                                    lineNumber: 46,
+                                    columnNumber: 35
+                                }, undefined)
+                            }, void 0, false, {
+                                fileName: "src/components/director-card/director-card.jsx",
+                                lineNumber: 46,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "my-3",
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                        children: [
+                                            "Death year: ",
+                                            props.directorCard.director.deathyear
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/director-card/director-card.jsx",
+                                        lineNumber: 56,
+                                        columnNumber: 16
+                                    }, undefined)
+                                }, void 0, false, {
+                                    fileName: "src/components/director-card/director-card.jsx",
+                                    lineNumber: 55,
+                                    columnNumber: 35
+                                }, undefined)
+                            }, void 0, false, {
+                                fileName: "src/components/director-card/director-card.jsx",
+                                lineNumber: 55,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
+                                fileName: "src/components/director-card/director-card.jsx",
+                                lineNumber: 58,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
+                                children: "Suggested movies from this director"
+                            }, void 0, false, {
+                                fileName: "src/components/director-card/director-card.jsx",
+                                lineNumber: 59,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                                sm: 1,
+                                md: 2,
+                                lg: 3,
+                                xl: 4,
+                                gap: 4,
+                                children: suggestedMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                                        className: "d-flex flex-column justify-content-center align-items-center",
+                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                                            movieCard: movie
+                                        }, void 0, false, {
+                                            fileName: "src/components/director-card/director-card.jsx",
+                                            lineNumber: 67,
+                                            columnNumber: 19
+                                        }, undefined)
+                                    }, movie.id, false, {
+                                        fileName: "src/components/director-card/director-card.jsx",
+                                        lineNumber: 63,
+                                        columnNumber: 16
+                                    }, undefined))
+                            }, void 0, false, {
+                                fileName: "src/components/director-card/director-card.jsx",
+                                lineNumber: 61,
+                                columnNumber: 13
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/director-card/director-card.jsx",
+                        lineNumber: 44,
+                        columnNumber: 10
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
+                        className: "justify-content-center",
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                            variant: "warning",
+                            size: "lg",
+                            onClick: closeDetailsModal,
+                            children: "Close"
+                        }, void 0, false, {
+                            fileName: "src/components/director-card/director-card.jsx",
+                            lineNumber: 73,
+                            columnNumber: 13
+                        }, undefined)
+                    }, void 0, false, {
+                        fileName: "src/components/director-card/director-card.jsx",
+                        lineNumber: 72,
+                        columnNumber: 10
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/director-card/director-card.jsx",
+                lineNumber: 40,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/director-card/director-card.jsx",
+        lineNumber: 33,
+        columnNumber: 5
+    }, undefined);
+};
+_s(DirectorCard, "x5id/bedojiH6gBqRr9/A6FYdG0=");
+_c = DirectorCard;
+// Prop types validation
+DirectorCard.propTypes = {
+    directorCard: (0, _propTypesDefault.default).shape({
+        name: (0, _propTypesDefault.default).string.isRequired,
+        bio: (0, _propTypesDefault.default).string.isRequired,
+        birthyear: (0, _propTypesDefault.default).arrayOf((0, _propTypesDefault.default).string).isRequired,
+        deathyear: (0, _propTypesDefault.default).string.isRequired
+    }).isRequired
+};
+exports.default = DirectorCard;
+var _c;
+$RefreshReg$(_c, "DirectorCard");
+
+  $parcel$ReactRefreshHelpers$15d4.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","prop-types":"7wKI2","react":"21dqq","react-bootstrap":"3AD9A","../movie-card/movie-card":"bwuIu","./director-card.scss":"2OiJ0","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"2OiJ0":[function() {},{}],"i5LP7":[function() {},{}]},["4s3Ar","1xC6H","d8Dch"], "d8Dch", "parcelRequireaec4")
 
 //# sourceMappingURL=index.b4b6dfad.js.map

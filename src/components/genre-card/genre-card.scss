@@ -1,0 +1,23 @@
+.custom-card-genreCard {
+   background-color: #393E46 !important;
+   color: #00FFF5 !important;
+   border-radius: 10px;
+   border-color: #00FFF5 !important;
+   width: 150px !important;
+   height: 100px !important;
+   
+   @media (min-width: 1080px) {
+    width: 150 !important;
+    height: 150 !important;
+  }
+}
+
+.modal-dialog {
+  max-width: 100% !important;
+  width: 100vw !important;
+}
+.modal-content {
+  background-color: #393E46 !important;
+  color: #00FFF5 !important;
+  height: 100%;
+}

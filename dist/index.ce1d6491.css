@@ -18,7 +18,7 @@
   height: 350px !important;
 }
 
-@media (width >= 1080px) {
+@media (width >= 1200px) {
   .custom-card-movieCard {
     width: 305px !important;
     height: 420px !important;
@@ -36,7 +36,10 @@
   background-color: #393e46 !important;
 }
 
-
+.custom-color {
+  color: #00fff5 !important;
+  background-color: #393e46 !important;
+}
 
 .custom-navbar {
   background-color: #393e46 !important;
@@ -54,6 +57,49 @@
 
 .custom-form {
   max-width: 400px !important;
+}
+
+.custom-card-genreCard {
+  border-radius: 10px;
+  color: #00fff5 !important;
+  background-color: #393e46 !important;
+  border-color: #00fff5 !important;
+  width: 150px !important;
+  height: 100px !important;
+}
+
+@media (width >= 1080px) {
+  .custom-card-genreCard {
+    width: 150px !important;
+    height: 150px !important;
+  }
+}
+
+.modal-dialog {
+  width: 100vw !important;
+  max-width: 100% !important;
+}
+
+.modal-content {
+  height: 100%;
+  color: #00fff5 !important;
+  background-color: #393e46 !important;
+}
+
+.custom-card-directorCard {
+  color: #00fff5 !important;
+  background-color: #393e46 !important;
+}
+
+.modal-dialog {
+  width: 100vw !important;
+  max-width: 100% !important;
+}
+
+.modal-content {
+  height: 100%;
+  color: #00fff5 !important;
+  background-color: #393e46 !important;
 }
 
 :root, [data-bs-theme="light"] {

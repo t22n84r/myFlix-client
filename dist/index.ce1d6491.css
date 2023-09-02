@@ -34,20 +34,12 @@
 .custom-card-signupView {
   color: #00fff5 !important;
   background-color: #393e46 !important;
+  border-color: #00fff5 !important;
 }
 
 .custom-color {
   color: #00fff5 !important;
   background-color: #393e46 !important;
-}
-
-.custom-navbar {
-  background-color: #393e46 !important;
-  border-radius: 5px !important;
-}
-
-.custom-navbar-brand, .custom-nav-link {
-  color: #00fff5 !important;
 }
 
 .custom-profileView {
@@ -100,6 +92,15 @@
   height: 100%;
   color: #00fff5 !important;
   background-color: #393e46 !important;
+}
+
+.custom-navbar {
+  background-color: #393e46 !important;
+  border-radius: 5px !important;
+}
+
+.custom-navbar-brand, .custom-nav-link {
+  color: #00fff5 !important;
 }
 
 :root, [data-bs-theme="light"] {

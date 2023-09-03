@@ -3,7 +3,7 @@
 // Import PropTypes and required components
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { Card, Modal, Button, Col, Row } from "react-bootstrap";
+import { Modal, Button, Col, Row } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
 import "./director-card.scss"; // Import the custom SCSS for DirectorCard styles
 
@@ -37,6 +37,7 @@ export const DirectorCard = (props) => {
         <li>{props.directorCard.director.name}</li>
       </ul>
 
+      {/*Modal for details of the director*/}
       <Modal show={showDetailsModal} onHide={closeDetailsModal} className="d-flex p-5 align-items-center justify-content-center text-center">
          <Modal.Header className="text-center justify-content-center">
             <Modal.Title>{props.directorCard.director.name}</Modal.Title>

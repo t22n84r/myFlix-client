@@ -35,6 +35,7 @@ export const GenreCard = (props) => {
         <Card.Title>{props.genreCard.genre.name}</Card.Title>
       </Card>
 
+      {/*Modal for showing the genre details*/}
       <Modal show={showDetailsModal} onHide={closeDetailsModal} className="d-flex p-5 align-items-center justify-content-center text-center">
         <Modal.Header className="text-center justify-content-center">
             <Modal.Title>{props.genreCard.genre.name}</Modal.Title>

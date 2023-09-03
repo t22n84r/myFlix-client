@@ -3,8 +3,8 @@
 // Import PropTypes and required components
 import PropTypes from "prop-types";
 import { Card, Image } from "react-bootstrap";
-import "./movie-card.scss"; // Import the custom SCSS for MovieCard styles
 import { Link } from "react-router-dom";
+import "./movie-card.scss";
 
 // Define the MovieCard component
 export const MovieCard = (props) => {

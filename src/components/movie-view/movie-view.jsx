@@ -1,10 +1,10 @@
 /** @format */
 
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { MovieCard } from "../movie-card/movie-card";
 import { Button, ButtonGroup, Card, CardImg, Col, Row, ToggleButton } from "react-bootstrap";
 import "./movie-view.scss";
-import { useState } from "react";
 
 export const MovieView = (props) => {
   // Display detailed information about a movie
@@ -15,6 +15,7 @@ export const MovieView = (props) => {
   const naivigate = useNavigate();
   const handleBack = () => { naivigate(-1); };
 
+  // handle movie title parameter change
   const { movieTitle } = useParams();
   const movie = props.movieView.movies.find((m) => m.title === movieTitle);
 
@@ -93,6 +94,7 @@ export const MovieView = (props) => {
       });
   };
 
+  // user favorite movie check box toggle
   const isFavorite = user.favoriteMovies.includes(movie.id);
   const [checked, setChecked] = useState(isFavorite);
 

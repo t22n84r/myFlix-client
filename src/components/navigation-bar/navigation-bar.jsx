@@ -12,6 +12,7 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
          <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
 
+            {/*Navigation for not logged in user to login  & signup*/}
             { !user && (
                <Nav variant="pills">
                   <Nav.Item>
@@ -22,7 +23,8 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
                   </Nav.Item>
                </Nav>
             )}
-
+            
+            {/*Navigation for logged in user to access apps functionality & logout*/}
             { user && (
                <Nav variant="pills">
                   <Nav.Item>

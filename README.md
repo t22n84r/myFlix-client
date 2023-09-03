@@ -21,24 +21,24 @@ Welcome to the MyFlix Movie Database App. Dive into the world of cinema with thi
 ## Installation
 
 1. Clone this repository:
-\```bash
-git clone [repository_url]
-\```
+```bash
+git clone https://github.com/t22n84r/myFlix-client
+```
 
 2. Navigate to the project directory:
-\```bash
+```bash
 cd myflix-movie-app
-\```
+```
 
 3. Install dependencies:
-\```bash
+```bash
 npm install
-\```
+```
 
 4. Start the development server:
-\```bash
+```bash
 npm start
-\```
+```
 
 Your app should now be running on [http://localhost:1234](http://localhost:1234).
 

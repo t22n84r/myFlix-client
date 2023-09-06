@@ -184,7 +184,7 @@ export const MainView = () => {
                     />
                   </Col>
                   <Col className="d-flex flex-column justify-content-center align-items-center">
-                    <Row sm={1} md={2} lg={3} xl={4} gap={4} className="w-100">
+                    <Row sm={1} md={1} lg={2} xl={3} xxl={4}  gap={4} className="w-100">
                       {(filteredMovies.length > 0 ? filteredMovies : movies).map((movie) => (
                         <Col
                           key={movie.id}

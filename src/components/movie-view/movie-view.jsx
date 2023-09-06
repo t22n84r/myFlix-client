@@ -150,7 +150,7 @@ export const MovieView = (props) => {
           <ButtonGroup className="mb-2">
             <ToggleButton
               type="checkbox"
-              variant="outline-success"
+              variant="success"
               size="lg"
               className="align-self-start mx-5"
               checked={checked}

@@ -1,13 +1,13 @@
 # MyFlix Movie Database App
 
 Welcome to the MyFlix Movie Database App. Dive into the world of cinema with this intuitive React-based application that lets you explore movies, genres, and directors.
-
+Live version as an example- https://myflixregal.netlify.app/login
 ## Table of Contents
 
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Credits](#credits)
+- [Technology used](#technology used)
 - [License](#license)
 
 ## Features
@@ -49,6 +49,10 @@ Your app should now be running on [http://localhost:1234](http://localhost:1234)
 3. **Viewing Movie Details**: Click on a movie card to see more details about the movie.
 4. **Exploring Genres & Directors**: Navigate to the `/genres` or `/directors` routes to explore movies by their genres or directors, respectively.
 5. **Profile Management**: Go to `/profile` to view and manage your user profile.
+
+## Technology used
+
+This application was built with REACT and styled with BOOTSTRAP.
 
 ## License
 
